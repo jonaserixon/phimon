@@ -6,10 +6,12 @@ const port = process.env['SERVER_PORT'] || 3000;
 
 class Server {
     public app: express.Application;
+    public client: any;
     public mainRoutes = new MainRoutes();
 
-    constructor() {
+    constructor(client: any) {
         this.app = express();
+        this.client = client;
         this.middlewares();
         this.mountRoutes();
     }
@@ -20,7 +22,7 @@ class Server {
     }
 
     private mountRoutes(): void {
-        this.mainRoutes.routes(this.app);
+        this.mainRoutes.routes(this.app, this.client);
     }
     
     public start(): void {

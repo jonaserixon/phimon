@@ -11,7 +11,7 @@ class Database {
         this.connect();
     }
 
-    private async connect(): Promise<void> {
+    public async connect(): Promise<void> {
         try {
             await this.client.connect();
             console.log('Successfully connected to DB.');
