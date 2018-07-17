@@ -1,0 +1,1 @@
+Created with [create-react-app-typescript](https://github.com/wmonk/create-react-app-typescript)

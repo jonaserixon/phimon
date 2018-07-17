@@ -14,7 +14,7 @@ class Seed {
     }
 
     private async start(): Promise<void> {
-        for (let i = 17; i <= 100; i++) {
+        for (let i = 1; i <= 386; i++) {
             const options: rq.Options = {
                 uri: 'http://pokeapi.salestock.net/api/v2/pokemon/' + i + '/',
                 method: 'GET',
@@ -73,11 +73,13 @@ class Seed {
         }
     }
 
+    /*
     private async table(): Promise<void> {
         // await this.client.query('DROP TABLE pokemon');
         const queryString = 'CREATE TABLE pokemon(id INTEGER PRIMARY KEY, sprite TEXT, pkmnName TEXT, type TEXT, speed INTEGER, spDef INTEGER, spAtk INTEGER, def INTEGER, atk INTEGER, hp INTEGER, weight INTEGER, height INTEGER)';
         await this.client.query(queryString);
     }
+    */
 }
 
 export default Seed;
