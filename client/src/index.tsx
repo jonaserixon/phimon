@@ -5,9 +5,9 @@ import { BrowserRouter } from 'react-router-dom';
 import routes from './routes/routes';
 
 ReactDOM.render(
-  <BrowserRouter>
-    {routes}
-  </BrowserRouter>
-  ,
-  document.getElementById('root') as HTMLElement
+    <BrowserRouter>
+        {routes}
+    </BrowserRouter>
+    ,
+    document.getElementById('root') as HTMLElement
 );
