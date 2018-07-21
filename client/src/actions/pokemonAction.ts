@@ -1,20 +1,17 @@
-import { GET_POKEMON } from './actions';
+import { GET_POKEMON, SET_POKEMON } from './actions';
 import axios from 'axios';
 
-/*
- * action creators
- */
-​
+// Action creator
 export const getPokemon = (input: string) => async (dispatch: any) => {
     try {
+        dispatch({ type: GET_POKEMON });
         const response = await axios.get('/api/pokemon/specific/' + input);
-        console.log(response.data[0])
         dispatch({
             payload: response.data[0],
-            type: GET_POKEMON
+            type: SET_POKEMON
         })
     } catch(err) {
         console.log(err);
-        return;
+        throw new Error(err);
     }
 }

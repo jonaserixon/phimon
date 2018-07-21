@@ -16,6 +16,10 @@ class Server {
         this.mountRoutes();
     }
 
+    public start(): void {
+        this.app.listen(port, () => console.log('Express listening on port ' + port));
+    }
+
     private middlewares(): void {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,11 +27,7 @@ class Server {
 
     private mountRoutes(): void {
         this.mainRoutes.routes(this.app, this.client);
-    }
-    
-    public start(): void {
-        this.app.listen(port, () => console.log('Express listening on port ' + port));
-    }
+    }    
 }
 
 export default Server;

@@ -1,16 +1,22 @@
-import { GET_POKEMON } from '../actions/actions';
+import { GET_POKEMON, SET_POKEMON } from '../actions/actions';
 
 const initialState = {
-    pokemon: {},
-    pokemons: []
+    isLoading: false,
+    pokemon: {}
 }
 
 export default (state = initialState, action: any) => {
     switch(action.type) {
-        case GET_POKEMON: 
+        case GET_POKEMON:
             return {
                 ...state,
-                pokemon: action.payload,
+                isLoading: true,
+            }
+        case SET_POKEMON:
+            return {
+                ...state,
+                isLoading: false,
+                pokemon: action.payload
             }
         default: 
             return state;

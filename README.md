@@ -1,9 +1,9 @@
 # phimon
 
-### This app was built using
+### This app was developed using
  - ExpressJS
  - TypeScript
  - Postgres
  - React
- - Redux
+ - Redux (react-redux)
  - [Recharts](https://github.com/recharts/recharts)

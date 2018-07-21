@@ -7,12 +7,6 @@ export interface ISearchBar {
     getPokemon(input: any): any;
 }
 
-const mapDispatchToProps = (dispatch: any) => {
-    return {
-        getPokemon: (pokemon: any) => dispatch(getPokemon(pokemon))
-    };
-};
-
 class SearchBar extends React.Component<ISearchBar, { value: string }> {
     constructor(props: any) {
         super(props);
@@ -42,5 +36,11 @@ class SearchBar extends React.Component<ISearchBar, { value: string }> {
         this.props.getPokemon(this.state.value);
     }
 }
+
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        getPokemon: (pokemon: any) => dispatch(getPokemon(pokemon))
+    };
+};
 
 export default connect(null, mapDispatchToProps)(SearchBar);
