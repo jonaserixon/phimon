@@ -1,4 +1,5 @@
 import { GET_POKEMON, SET_POKEMON, GET_POKEMONS, SET_POKEMONS } from './actions';
+import history from '../history';
 import axios from 'axios';
 
 // Action creators
@@ -10,7 +11,8 @@ export const getPokemon = (input: string) => async (dispatch: any) => {
         dispatch({
             payload: response.data[0],
             type: SET_POKEMON
-        })
+        });
+        history.push('/pokemon/' + response.data[0].pkmnname);
     } catch(err) {
         console.log(err);
     }
@@ -25,7 +27,7 @@ export const getPokemons = (input: string) => async (dispatch: any) => {
         dispatch({
             payload: response.data,
             type: SET_POKEMONS
-        })
+        });
     } catch(err) {
         console.log(err);
     }

@@ -34,6 +34,7 @@ class SearchBar extends React.Component<ISearchBar, { value: string }> {
         event.preventDefault();
         console.log(this.state.value);
         this.props.getPokemon(this.state.value);
+        
     }
 }
 

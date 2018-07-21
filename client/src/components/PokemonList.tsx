@@ -21,6 +21,11 @@ class PokemonList extends React.Component<IPokemonList> {
         return (
             <div className="PokemonList">
                 <h1>Pokemon List</h1>
+                <ul>
+                    <li>list</li>
+                    <li>of</li>
+                    <li>pokemons</li>
+                </ul>
             </div>
         );
     }
