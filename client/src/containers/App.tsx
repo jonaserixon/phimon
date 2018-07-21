@@ -1,10 +1,11 @@
 import * as React from 'react';
 import '../style.css';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
-import PokemonPresenter from '../components/Pokemon';
+import Pokemon from '../components/Pokemon';
+import FilterBar from '../components/FilterBar';
 
 class App extends React.Component {
     public render() {
@@ -12,7 +13,8 @@ class App extends React.Component {
             <div className="App">
                 <Header />
                 <SearchBar />
-                <PokemonPresenter />
+                <FilterBar />
+                <Pokemon />
             </div>
         );
     }

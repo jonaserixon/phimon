@@ -1,4 +1,3 @@
-// innehåller bild + info + charts för en pokemon
 import * as React from 'react';
 import { connect } from "react-redux";
 
@@ -28,15 +27,14 @@ class Pokemon extends React.Component<IPokemon> {
     }
 
     private handleRender = (): JSX.Element => {
-        if (Object.keys(this.props.pokemon).length > 0 && this.props.pokemon.constructor === Object) {
+        if (this.props.pokemon.length > 0) {
             return (
                 <div>
-                    <p>Search completed</p>
-                    
-                    <h3>{this.props.pokemon.pkmnname}</h3>
-                    <p>#{this.props.pokemon.id}</p>
-                    <img src={this.props.pokemon.sprite} />
-
+                    <hr />
+                    <h3>{this.props.pokemon[0].pkmnname}</h3>
+                    <p>#{this.props.pokemon[0].id}</p>
+                    <img src={this.props.pokemon[0].sprite} />
+                    <hr />
                 </div>
             )
         } else {

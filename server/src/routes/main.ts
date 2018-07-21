@@ -30,40 +30,15 @@ class MainRoutes {
             }
         })
         
-        // FILTERS
-        app.get('/api/pokemon/filter/type/:type', async (req: Request, res: Response) => {
-            // Get all Pokemons of a certain type and sort by pokedex ID
+        // FILTER LIST
+        app.get('/api/filter', async (req: Request, res: Response) => {
             try {
-                const queryString = 'SELECT * FROM pokemon WHERE type LIKE $1 ORDER BY id ASC';
-                const values = ['%' + req.params.type + '%'];
+                const queryString = 'SELECT * FROM pokemon WHERE type LIKE $1 ORDER BY ' + req.query.sort + ' ASC';
+                const values = ['%' + req.query.type + '%'];
                 const result = await client.query(queryString, values);
                 res.status(200).json(result.rows);
             } catch(err) {
-                res.status(500).json(err);
-            }
-        })
-
-        app.get('/api/pokemon/filter/stat/:stat/:value', async (req: Request, res: Response) => {
-            // Get all Pokemons that has a stat larger than the specified value
-            try {
-                const queryString = 'SELECT * FROM pokemon WHERE ' + req.params.stat + ' >= $1 ORDER BY ' + req.params.stat + ' ASC';
-                const values = [req.params.value];
-                const result = await client.query(queryString, values);
-                res.status(200).json(result.rows);
-            } catch(err) {
-                res.status(500).json(err);
-            }
-        })
-
-
-
-        // SORTING
-        app.get('/api/pokemon/sort/column/:column/:sortType', async (req: Request, res: Response) => {
-            try {
-                const queryString = 'SELECT * FROM pokemon ORDER BY ' + req.params.column + ' ' + req.params.sortType;
-                const result = await client.query(queryString);
-                res.status(200).json(result.rows);
-            } catch(err) {
+                console.log(err);
                 res.status(500).json(err);
             }
         })
