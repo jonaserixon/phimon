@@ -1,8 +1,17 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { getPokemon } from '../actions/pokemonAction';
 
 export interface ISearchBar {
-	onClick(client: any): void;
+    pokemon: any;
+    getPokemon(input: any): any;
 }
+
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        getPokemon: (pokemon: any) => dispatch(getPokemon(pokemon))
+    };
+};
 
 class SearchBar extends React.Component<ISearchBar, { value: string }> {
     constructor(props: any) {
@@ -10,9 +19,6 @@ class SearchBar extends React.Component<ISearchBar, { value: string }> {
         this.state = {
             value: ''
         };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     public render() {
@@ -26,14 +32,15 @@ class SearchBar extends React.Component<ISearchBar, { value: string }> {
         );
     }
 
-    private handleChange(event: any): void {
+    private handleChange = (event: any): void => {
         this.setState({value: event.target.value});
     }
 
-    private handleSubmit(event: any): void {
+    private handleSubmit = (event: any): void => {
         event.preventDefault();
-        this.props.onClick(this.state.value);
+        console.log(this.state.value);
+        this.props.getPokemon(this.state.value);
     }
 }
 
-export default SearchBar;
+export default connect(null, mapDispatchToProps)(SearchBar);
