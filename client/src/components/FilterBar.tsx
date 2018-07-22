@@ -1,13 +1,16 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { getPokemons } from '../actions/pokemonAction';
 import * as qs from 'qs';
 
-export interface IFilterBar {
-    getPokemons(input: any): any;
+export interface IFilterBarProps {
+    submitFilter(input: string): void;
 }
 
-class SearchBar extends React.Component<IFilterBar, { selectType: string, sortType: string}> {
+interface IFilterBarState {
+    selectType: string, 
+    sortType: string
+}
+
+class SearchBar extends React.Component<IFilterBarProps, IFilterBarState> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -25,6 +28,7 @@ class SearchBar extends React.Component<IFilterBar, { selectType: string, sortTy
                         <label>
                             Filter 
                             <select value={this.state.selectType} onChange={this.handleTypeChange}>
+                                <option>Choose a type</option>
                                 <option value='normal'>Normal</option>
                                 <option value='fighting'>Fighting</option>
                                 <option value='flying'>Flying</option>
@@ -53,6 +57,7 @@ class SearchBar extends React.Component<IFilterBar, { selectType: string, sortTy
                         <label>
                             Sort 
                             <select value={this.state.sortType} onChange={this.handleSortChange}>
+                                <option>Choose sorting</option>
                                 <option value='id'>pokedex id</option>
                                 <option value='pkmnname'>name</option>
                                 <option value='hp'>HP</option>
@@ -80,16 +85,14 @@ class SearchBar extends React.Component<IFilterBar, { selectType: string, sortTy
 
     private handleSubmit = (event: any): void => {
         event.preventDefault();
+        if (this.state.selectType === '' || this.state.sortType === '') {
+            // Dispatcha till en global flash message grej
+            console.log('Empty filtering fields!');
+            return;
+        }
         const queryString = qs.stringify({'type': this.state.selectType, 'sort': this.state.sortType});
-        console.log(queryString);
-        this.props.getPokemons(queryString);
+        this.props.submitFilter('/api/filter?' + queryString);
     }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
-    return {
-        getPokemons: (pokemons: any) => dispatch(getPokemons(pokemons))
-    };
-};
-
-export default connect(null, mapDispatchToProps)(SearchBar);
+export default SearchBar;

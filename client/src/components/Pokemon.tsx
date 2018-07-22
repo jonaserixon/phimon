@@ -2,31 +2,31 @@ import * as React from 'react';
 import { connect } from "react-redux";
 import { getPokemon } from '../actions/pokemonAction';
 
-export interface IPokemon {
+export interface IPokemonProps {
     pokemon: any;
     isLoading: boolean;
     match: any;
     getPokemon(input: any): any;
 }
 
-class Pokemon extends React.Component<IPokemon> {
+class Pokemon extends React.Component<IPokemonProps> {
 
-    public componentDidUpdate() {
-        console.log(this.props.isLoading);
-        console.log(this.props.pokemon);
-        console.log('update')
-    }
+    // public componentDidUpdate() {
+    //     console.log(this.props.isLoading);
+    //     console.log(this.props.pokemon);
+    //     console.log('update')
+    // }
 
-    public componentWillMount() {
-        console.log(this.props.isLoading);
-        console.log(this.props.match.params.id);
+    // public componentWillMount() {
+    //     console.log(this.props.isLoading);
+    //     console.log(this.props.match.params.id);
         
-    }
+    // }
 
     public render() {
         return (
             <div className="Pokemon">
-                <h1>Pokemon Container Page</h1>
+                <h1>Pokemon Page</h1>
                 {this.handleRender()}
             </div>
         );
@@ -34,7 +34,6 @@ class Pokemon extends React.Component<IPokemon> {
 
     private handleRender = (): JSX.Element => {
         if (Object.keys(this.props.pokemon).length > 0 && this.props.pokemon.constructor === Object) {            
-            console.log('finns pkmns')
             return (
                 <div>
                     <hr />
@@ -46,11 +45,9 @@ class Pokemon extends React.Component<IPokemon> {
             )
         } else {
             this.props.getPokemon(this.props.match.params.id);
-            console.log(this.props.pokemon);
-            console.log('tomt som fan')
             return (
                 <div>
-                    <p>Inte laddat nån Pokemon ännu hehe</p>
+                    <p>Loading...</p>
                 </div>
             )
         }
@@ -59,8 +56,8 @@ class Pokemon extends React.Component<IPokemon> {
 
 const mapStateToProps = (state: any) => {
     return { 
-        isLoading: state.pokemon.isLoading,
-        pokemon: state.pokemon.pokemon
+        isLoading: state.pokemonReducer.isLoading,
+        pokemon: state.pokemonReducer.pokemon
     };
 };
 

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
-import FilterBar from '../components/FilterBar';
 
 class App extends React.Component {
     public render() {
@@ -12,7 +11,6 @@ class App extends React.Component {
             <div className="App">
                 <Header />
                 <SearchBar />
-                <FilterBar />
             </div>
         );
     }
