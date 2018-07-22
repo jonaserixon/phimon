@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as qs from 'qs';
 
-export interface IFilterBarProps {
+interface IFilterBarProps {
     submitFilter(input: string): void;
 }
 

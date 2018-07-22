@@ -4,7 +4,7 @@ import { getPokemon } from '../actions/pokemonAction';
 import * as Autosuggest from 'react-autosuggest';
 import axios from 'axios';
 
-export interface ISearchBarProps {
+interface ISearchBarProps {
     pokemon: any;
     getPokemon(input: any): any;
 }

@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { connect } from "react-redux";
 import { getPokemon } from '../actions/pokemonAction';
+import Chart from './Chart';
 
-export interface IPokemonProps {
+interface IPokemonProps {
     pokemon: any;
     isLoading: boolean;
     match: any;
@@ -10,24 +11,12 @@ export interface IPokemonProps {
 }
 
 class Pokemon extends React.Component<IPokemonProps> {
-
-    // public componentDidUpdate() {
-    //     console.log(this.props.isLoading);
-    //     console.log(this.props.pokemon);
-    //     console.log('update')
-    // }
-
-    // public componentWillMount() {
-    //     console.log(this.props.isLoading);
-    //     console.log(this.props.match.params.id);
-        
-    // }
-
     public render() {
         return (
             <div className="Pokemon">
                 <h1>Pokemon Page</h1>
                 {this.handleRender()}
+                <Chart pokemon={this.props.pokemon}/>
             </div>
         );
     }

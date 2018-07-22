@@ -35,6 +35,17 @@ class PokemonList extends React.Component<{}, IPokemonState> {
             <div className="PokemonList">
                 <h1>Pokemon List</h1>
                 <FilterBar submitFilter={this.handleFiltering}/>
+                <ol>
+                    {this.state.list.map((pokemon, i) => {
+                        return (
+                            <a key={i} href={'/pokemon/' + pokemon.pkmnname}>
+                            <li key={i}>
+                                {pokemon.pkmnname}
+                            </li>
+                            </a>
+                        )
+                    })}
+                </ol>
             </div>
         );
     }
