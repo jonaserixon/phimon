@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import SearchBar from './SearchBar';
 
 class Header extends React.Component {
     public render() {
@@ -9,7 +10,9 @@ class Header extends React.Component {
 
                 <Link to='/'>PhiMon</Link>
                 <Link to='/list'>Pokemon List</Link>
-                
+                <Link to='/compare'>Compare Pokemons</Link>
+
+                <SearchBar />
             </div>
         );
     }

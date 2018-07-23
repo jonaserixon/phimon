@@ -38,19 +38,17 @@ class SearchBar extends React.Component<ISearchBarProps, ISearchBarState> {
         };
 
         return (
-            <div className="SearchBar">
-                <form onSubmit={this.handleSubmit}>
-                    <Autosuggest
-                        suggestions={this.state.suggestions}
-                        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                        getSuggestionValue={this.getSuggestionValue}
-                        renderSuggestion={this.renderSuggestion}
-                        inputProps={inputProps}
-                    />
-                    <input type="submit" value="Submit" />
-                </form>
-            </div>
+            <form onSubmit={this.handleSubmit}>
+                <Autosuggest
+                    suggestions={this.state.suggestions}
+                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                    getSuggestionValue={this.getSuggestionValue}
+                    renderSuggestion={this.renderSuggestion}
+                    inputProps={inputProps}
+                />
+                <input type='submit' value='Search' />
+            </form>
         );
     }
 
@@ -74,7 +72,6 @@ class SearchBar extends React.Component<ISearchBarProps, ISearchBarState> {
 
     private handleSubmit = (event: any): void => {
         event.preventDefault();
-        console.log(this.state.value);
         this.props.getPokemon(this.state.value);
     }
 

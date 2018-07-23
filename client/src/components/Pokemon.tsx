@@ -14,7 +14,6 @@ class Pokemon extends React.Component<IPokemonProps> {
     public render() {
         return (
             <div className="Pokemon">
-                <h1>Pokemon Page</h1>
                 {this.handleRender()}
             </div>
         );
@@ -24,8 +23,7 @@ class Pokemon extends React.Component<IPokemonProps> {
         if (Object.keys(this.props.pokemon).length > 0 && this.props.pokemon.constructor === Object) {            
             return (
                 <div>
-                    <hr />
-                    <h3>{this.props.pokemon.pkmnname}</h3>
+                    <h1>{this.props.pokemon.pkmnname}</h1>
                     <p>#{this.props.pokemon.id}</p>
                     <img src={this.props.pokemon.sprite} />
                     <Chart pokemon={[this.props.pokemon]}/>
@@ -33,6 +31,7 @@ class Pokemon extends React.Component<IPokemonProps> {
                 </div>
             )
         } else {
+            // Detta är bara ifall en användare bestämmer sig för att knappa in URLen till en Pokemon manuellt
             this.props.getPokemon(this.props.match.params.id);
             return (
                 <div>

@@ -8,7 +8,21 @@
   background-color: #282828;
   height: 100px;
   padding: 20px;
-  color: white;
+  color: ghostwhite;
+}
+
+.Header a {
+  margin-left: 30px;
+  color: ghostwhite;
+  font-size: 16px;
+}
+
+.Header form {
+  float: right;
+}
+
+#react-autowhatever-1 {
+  color: black;
 }
 
 .Pokemon {

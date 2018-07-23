@@ -1,12 +1,14 @@
 import * as React from 'react';
 import FilterBar from './FilterBar';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { getPokemon } from '../redux/actions/pokemonAction';
 
 interface IPokemonState {
     list: any[];
 }
 
-class PokemonList extends React.Component<{}, IPokemonState> {
+class PokemonList extends React.Component<{getPokemon(input: any): any;}, IPokemonState> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -21,13 +23,14 @@ class PokemonList extends React.Component<{}, IPokemonState> {
         }
     }
 
-    public componentDidUpdate() {
-        console.log(this.state.list);
-    }
-
     public handleFiltering = async (input: string) => {
         const response = await axios.get(input);
         this.setState({list: response.data});
+    }
+
+    public handleOnClick = (event: any, name: string) => {
+        event.preventDefault();
+        this.props.getPokemon(name);
     }
 
     public render() {
@@ -38,9 +41,7 @@ class PokemonList extends React.Component<{}, IPokemonState> {
                 <ol>
                     {this.state.list.map((pokemon, i) => {
                         return (
-                            <a key={i} href={'/pokemon/' + pokemon.pkmnname}>
-                                <li key={i}>{pokemon.pkmnname}</li>
-                            </a>
+                            <li key={i} onClick={((e) => this.handleOnClick(e, pokemon.pkmnname))}>{pokemon.pkmnname}</li>
                         )
                     })}
                 </ol>
@@ -49,4 +50,10 @@ class PokemonList extends React.Component<{}, IPokemonState> {
     }
 }
 
-export default PokemonList;
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        getPokemon: (pokemon: any) => dispatch(getPokemon(pokemon))
+    };
+};
+
+export default connect(null, mapDispatchToProps)(PokemonList);
