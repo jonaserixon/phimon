@@ -2,7 +2,7 @@ import * as React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 interface IChartProps {
-    pokemon: any;
+    pokemon: any[];
 }
 
 class Chart extends React.Component<IChartProps> {
@@ -11,31 +11,51 @@ class Chart extends React.Component<IChartProps> {
     }
 
     public render() {
-        console.log(this.props.pokemon);
-        const barSize = 10;
-        const x = this.props.pokemon;
-        const arr = [
-            {name: 'base_stats', [x.pkmnname]: (x.hp+x.atk+x.spatk+x.spdef+x.speed), pkmn2: (x.hp+x.atk+x.spatk+x.spdef)},
-            {name: 'hp', [x.pkmnname]: x.hp, pkmn2: 30}, 
-            {name: 'atk', [x.pkmnname]: x.atk, pkmn2: 50}, 
-            {name: 'spAtk', [x.pkmnname]: x.spatk, pkmn2: 80}, 
-            {name: 'spDef', [x.pkmnname]: x.spdef, pkmn2: 60}, 
-            {name: 'speed', [x.pkmnname]: x.speed, pkmn2: 30}, 
-            {name: 'weight', [x.pkmnname]: x.weight, pkmn2: x.weight}, 
-            {name: 'height', [x.pkmnname]: x.height, pkmn2: x.height }
-        ]
         return (
-            <BarChart width={800} height={300} data={arr}
+            <BarChart width={800} height={300} data={this.getPokemonArray()}
                 margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                 <CartesianGrid strokeDasharray="3 3"/>
                 <XAxis dataKey='name'/>
                 <YAxis/>
                 <Tooltip/>
                 <Legend />
-                <Bar dataKey={x.pkmnname} fill="#8884d8" barSize={barSize} />
-                {/* <Bar dataKey="pkmn2" fill="#82ca9d" barSize={barSize} /> */}
+                {this.getBars()}
             </BarChart>
         );
+    }
+
+    private getPokemonArray = () => {
+        const allowedProperties = ['hp', 'atk', 'spatk', 'spdef', 'def', 'speed', 'pkmnname'];
+        const arr: any = [];
+        this.props.pokemon.forEach((pokemon) => {            
+            for (const property in pokemon) {
+                if (pokemon.hasOwnProperty(property)) {
+
+                    if (allowedProperties.includes(property) && property !== 'pkmnname' && arr.length < 6) {
+                        arr.push({ name: property, [pokemon.pkmnname]: pokemon[property] })
+                    }
+
+                    for (const o of arr) {
+                        const object = Object.keys(o);
+                        if (!object.includes(pokemon.pkmnname) && o.name === property) {                            
+                            o[pokemon.pkmnname] = pokemon[property];
+                        }
+                    }
+                }
+            }
+        })
+        return arr;
+    }
+
+    private getBars = () => {
+        const colors = ['#2a2321', '#b42000', '#78716f', '#3d4859', '#e352cb'];
+        return this.props.pokemon.
+        map((pokemon, i) => 
+            <Bar key={i} 
+                dataKey={pokemon.pkmnname} 
+                fill={colors[i]}
+            />
+        )
     }
 }
 

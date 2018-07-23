@@ -1,5 +1,7 @@
-.App {
+@import url('https://fonts.googleapis.com/css?family=Arimo|Oswald');
 
+.App {
+  font-family: 'Oswald', sans-serif;
 }
 
 .Header {
@@ -7,5 +9,9 @@
   height: 100px;
   padding: 20px;
   color: white;
+}
+
+.Pokemon {
+  font-family: 'Arimo', sans-serif;
 }
 

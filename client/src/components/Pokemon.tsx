@@ -28,7 +28,7 @@ class Pokemon extends React.Component<IPokemonProps> {
                     <h3>{this.props.pokemon.pkmnname}</h3>
                     <p>#{this.props.pokemon.id}</p>
                     <img src={this.props.pokemon.sprite} />
-                    <Chart pokemon={this.props.pokemon}/>
+                    <Chart pokemon={[this.props.pokemon]}/>
                     <hr />
                 </div>
             )
