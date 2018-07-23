@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from "react-redux";
-import { getPokemon } from '../actions/pokemonAction';
+import { getPokemon } from '../redux/actions/pokemonAction';
 import Chart from './Chart';
 
 interface IPokemonProps {
@@ -16,7 +16,6 @@ class Pokemon extends React.Component<IPokemonProps> {
             <div className="Pokemon">
                 <h1>Pokemon Page</h1>
                 {this.handleRender()}
-                <Chart pokemon={this.props.pokemon}/>
             </div>
         );
     }
@@ -29,6 +28,7 @@ class Pokemon extends React.Component<IPokemonProps> {
                     <h3>{this.props.pokemon.pkmnname}</h3>
                     <p>#{this.props.pokemon.id}</p>
                     <img src={this.props.pokemon.sprite} />
+                    <Chart pokemon={this.props.pokemon}/>
                     <hr />
                 </div>
             )

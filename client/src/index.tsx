@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import App from './containers/App';
 import Pokemon from './components/Pokemon';
 import PokemonList from './components/PokemonList'
-import store from './store';
-import history from './history';
+import store from './redux/store/store';
+import history from './utils/history';
 
 ReactDOM.render(
     <Provider store={store}>

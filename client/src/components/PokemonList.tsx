@@ -39,9 +39,7 @@ class PokemonList extends React.Component<{}, IPokemonState> {
                     {this.state.list.map((pokemon, i) => {
                         return (
                             <a key={i} href={'/pokemon/' + pokemon.pkmnname}>
-                            <li key={i}>
-                                {pokemon.pkmnname}
-                            </li>
+                                <li key={i}>{pokemon.pkmnname}</li>
                             </a>
                         )
                     })}

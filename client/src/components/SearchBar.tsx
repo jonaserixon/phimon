@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { getPokemon } from '../actions/pokemonAction';
+import { getPokemon } from '../redux/actions/pokemonAction';
 import * as Autosuggest from 'react-autosuggest';
 import axios from 'axios';
 

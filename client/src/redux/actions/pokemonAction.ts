@@ -1,5 +1,5 @@
 import { GET_POKEMON, SET_POKEMON } from './actions';
-import history from '../history';
+import history from '../../utils/history';
 import axios from 'axios';
 
 // Action creators

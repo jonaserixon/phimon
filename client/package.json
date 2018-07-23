@@ -11,6 +11,7 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-scripts-ts": "2.16.0",
+    "recharts": "^1.1.0",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0"
   },
@@ -29,6 +30,7 @@
     "@types/react-dom": "^16.0.6",
     "@types/react-redux": "^6.0.4",
     "@types/react-router-dom": "^4.2.7",
+    "@types/recharts": "^1.0.24",
     "typescript": "^2.9.2"
   },
   "proxy": "http://localhost:8000"
