@@ -4,7 +4,7 @@ import { Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import App from './containers/App';
 import Pokemon from './components/Pokemon';
-import PokemonList from './components/PokemonList'
+import PokemonList from './components/PokemonList';
 import store from './redux/store/store';
 import history from './utils/history';
 

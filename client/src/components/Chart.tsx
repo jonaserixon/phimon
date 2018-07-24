@@ -30,11 +30,9 @@ class Chart extends React.Component<IChartProps> {
         this.props.pokemon.forEach((pokemon) => {            
             for (const property in pokemon) {
                 if (pokemon.hasOwnProperty(property)) {
-
                     if (allowedProperties.includes(property) && property !== 'pkmnname' && arr.length < 6) {
                         arr.push({ name: property, [pokemon.pkmnname]: pokemon[property] })
                     }
-
                     for (const o of arr) {
                         const object = Object.keys(o);
                         if (!object.includes(pokemon.pkmnname) && o.name === property) {                            
@@ -49,9 +47,10 @@ class Chart extends React.Component<IChartProps> {
 
     private getBars = () => {
         const colors = ['#2a2321', '#b42000', '#78716f', '#3d4859', '#e352cb'];
-        return this.props.pokemon.
-        map((pokemon, i) => 
-            <Bar key={i} 
+        return this.props.pokemon
+        .map((pokemon, i) => 
+            <Bar 
+                key={i} 
                 dataKey={pokemon.pkmnname} 
                 fill={colors[i]}
             />

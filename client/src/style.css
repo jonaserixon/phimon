@@ -29,3 +29,19 @@
   font-family: 'Arimo', sans-serif;
 }
 
+.PokemonList {
+  font-family: 'Arimo', sans-serif;
+}
+
+.ComparePage {
+  float: left;
+  /* margin-left: 400px; */
+  position: -webkit-sticky;
+  position: sticky;
+  top: 230px;
+}
+
+.PokemonList ol {
+  float: left;
+  width: 200px;
+}

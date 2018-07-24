@@ -33,7 +33,7 @@ class SearchBar extends React.Component<ISearchBarProps, ISearchBarState> {
     public render() {
         const inputProps = {
             onChange: this.onChange,
-            placeholder: 'Search...',
+            placeholder: 'Search Pokemon',
             value: this.state.value
         };
 
