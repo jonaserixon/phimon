@@ -3,11 +3,6 @@ import Chart from './Chart';
 import Button from '@material-ui/core/Button';
 import SvgIcon from '@material-ui/core/SvgIcon';
 
-interface IComparePageProps {
-    pokemon: any[],
-    clearPokemonData(event: any): void
-}
-
 const DeleteIcon = () => {
     return (
         <SvgIcon>
@@ -15,6 +10,11 @@ const DeleteIcon = () => {
             <path d="M0 0h24v24H0z" fill="none"/>
         </SvgIcon>
     )
+}
+
+interface IComparePageProps {
+    pokemon: any[],
+    clearPokemonData(event: any): void
 }
 
 class ComparePage extends React.Component<IComparePageProps, {}> {

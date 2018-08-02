@@ -19,7 +19,7 @@ interface IPokemonState {
     checked: any[]
     list: any[],
     message: string,
-    open: boolean,
+    openSnackbar: boolean,
     selected: string[],
     pokemonData: any[]
 }
@@ -31,7 +31,7 @@ class PokemonList extends React.Component<{getPokemon(input: any): any;}, IPokem
             checked: [],
             list: [],
             message: '',
-            open: false,
+            openSnackbar: false,
             pokemonData: [],
             selected: [],
         }
@@ -41,7 +41,8 @@ class PokemonList extends React.Component<{getPokemon(input: any): any;}, IPokem
         event.preventDefault();
         this.setState({pokemonData: []});
         this.setState({selected: []});
-        this.setState({open: true});
+        this.setState({openSnackbar: true});
+        this.setState({checked: []});
         this.setState({message: 'Chart was cleared.'});
     }
 
@@ -51,13 +52,9 @@ class PokemonList extends React.Component<{getPokemon(input: any): any;}, IPokem
             this.setState({list: response.data});
         }
     }
-
-    public handleClick = () => {
-        this.setState({ open: true });
-    };
     
-    public handleClose = (event: any) => {
-        this.setState({ open: false });
+    public handleClose = () => {
+        this.setState({ openSnackbar: false });
     };
 
     public handleFiltering = async (input: string) => {
@@ -70,36 +67,47 @@ class PokemonList extends React.Component<{getPokemon(input: any): any;}, IPokem
         this.props.getPokemon(name);
     }
 
-    public handleAddCompare = async (event: any) => {
+    public handleAddCompare = async (event: any, i: any) => {
         event.preventDefault();
-        if (this.state.selected.includes(event.target.value) || this.state.selected.length > 4) {
-            console.log('Already selected / Reached maximum number of Pokemons!');
+
+        const { checked } = this.state;
+        const currentIndex = checked.indexOf(i);
+        const newChecked = [...checked];
+        
+        // if (this.state.selected.length > 4) {
+        //     return;
+        // }
+    
+        if (currentIndex === -1) {
+            newChecked.push(i);
         } else {
-            this.setState({open: true});
+            newChecked.splice(currentIndex, 1);
+        }
+        this.setState({checked: newChecked});
+
+        if (this.state.selected.length > 4) {
+            console.log('Reached maximum number of Pokemons!');
+        } else if (this.state.selected.includes(event.target.value)) {
+            console.log('Remove ' + event.target.value + ' from selected Pokémon.');
+
+            console.log(this.state.selected.indexOf(event.target.value));
+
+            const copyArr = this.state.selected.slice();
+            const copyArr1 = this.state.pokemonData.slice();
+
+            copyArr.splice(this.state.selected.indexOf(event.target.value), 1);
+            copyArr1.splice(this.state.selected.indexOf(event.target.value), 1);
+
+            this.setState({selected: copyArr});
+            this.setState({pokemonData: copyArr1});
+        } else {
+            this.setState({openSnackbar: true});
             this.setState({message: (event.target.value + ' was added.')});
             this.setState({selected: [...this.state.selected, event.target.value]});
             const response = await axios.get('/api/pokemon/specific/' + event.target.value);
             this.setState({pokemonData: [...this.state.pokemonData, response.data[0]]});
         }
     }
-
-    public handleToggle = (value: any) => () => {
-        const { checked } = this.state;
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-        
-        if (this.state.selected.length > 4) {
-            return;
-        }
-    
-        if (currentIndex === -1) {
-            newChecked.push(value);
-        } else {
-            newChecked.splice(currentIndex, 1);
-        }
-    
-        this.setState({checked: newChecked});
-    };
 
     public render() {
         return (
@@ -115,9 +123,8 @@ class PokemonList extends React.Component<{getPokemon(input: any): any;}, IPokem
                                 <ListItemText secondary={pokemon.type} />
                                 <ListItemSecondaryAction>
                                     <Checkbox
-                                        onChange={this.handleToggle(i)}
                                         checked={this.state.checked.indexOf(i) !== -1}
-                                        onClick={this.handleAddCompare} value={pokemon.pkmnname}
+                                        onClick={((e: any) => this.handleAddCompare(e, i))} value={pokemon.pkmnname}
                                     />
                                 </ListItemSecondaryAction>
                                 </ListItem>
@@ -135,7 +142,7 @@ class PokemonList extends React.Component<{getPokemon(input: any): any;}, IPokem
                         horizontal: 'right',
                         vertical: 'bottom'
                     }}
-                    open={this.state.open}
+                    open={this.state.openSnackbar}
                     autoHideDuration={6000}
                     onClose={this.handleClose}
                     ContentProps={{
