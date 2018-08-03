@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Arimo|Oswald');
 
 .App {
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Arial', sans-serif;
 }
 
 .Header {
@@ -9,6 +9,7 @@
   height: 100px;
   padding: 20px;
   color: ghostwhite;
+  font-family: 'Oswald', sans-serif;
 }
 
 .Header a {
@@ -31,13 +32,6 @@
 
 .PokemonList {
   font-family: 'Arimo', sans-serif;
-}
-
-.ComparePage {
-  float: left;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 230px;
 }
 
 .PokemonList ol {

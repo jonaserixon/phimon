@@ -16,9 +16,11 @@ import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 
 interface IPokemonState {
-    checked: any[]
+    checked: any[],
+    isCompareButtonDisabled: boolean,
     list: any[],
     message: string,
+    openModal: boolean,
     openSnackbar: boolean,
     selected: string[],
     pokemonData: any[]
@@ -29,8 +31,10 @@ class PokemonList extends React.Component<{getPokemon(input: any): any;}, IPokem
         super(props);
         this.state = {
             checked: [],
+            isCompareButtonDisabled: true,
             list: [],
             message: '',
+            openModal: false,
             openSnackbar: false,
             pokemonData: [],
             selected: [],
@@ -44,6 +48,7 @@ class PokemonList extends React.Component<{getPokemon(input: any): any;}, IPokem
         this.setState({openSnackbar: true});
         this.setState({checked: []});
         this.setState({message: 'Chart was cleared.'});
+        this.setState({isCompareButtonDisabled: true});
     }
 
     public async componentDidMount() {
@@ -70,43 +75,52 @@ class PokemonList extends React.Component<{getPokemon(input: any): any;}, IPokem
     public handleAddCompare = async (event: any, i: any) => {
         event.preventDefault();
 
-        const { checked } = this.state;
-        const currentIndex = checked.indexOf(i);
-        const newChecked = [...checked];
-        
-        // if (this.state.selected.length > 4) {
-        //     return;
-        // }
-    
-        if (currentIndex === -1) {
-            newChecked.push(i);
-        } else {
-            newChecked.splice(currentIndex, 1);
-        }
-        this.setState({checked: newChecked});
+        const currentIndex = this.state.checked.indexOf(i);
+        const newChecked = [...this.state.checked];
 
-        if (this.state.selected.length > 4) {
+        if (this.state.selected.length < 4) {
+            if (currentIndex === -1) {
+                newChecked.push(i);
+            } else {
+                newChecked.splice(currentIndex, 1);
+            }
+            this.setState({checked: newChecked});
+            
+            if (this.state.selected.includes(event.target.value)) {
+                const newSelected = this.state.selected.slice();
+                const newPokemonData = this.state.pokemonData.slice();
+                
+                newSelected.splice(this.state.selected.indexOf(event.target.value), 1);
+                newPokemonData.splice(this.state.selected.indexOf(event.target.value), 1);
+
+                this.setState({selected: newSelected});
+                this.setState({pokemonData: newPokemonData});
+            } else {
+                this.setState({openSnackbar: true});
+                this.setState({message: (event.target.value + ' was added.')});
+                this.setState({selected: [...this.state.selected, event.target.value]});
+                const response = await axios.get('/api/pokemon/specific/' + event.target.value);
+                this.setState({pokemonData: [...this.state.pokemonData, response.data[0]]});
+            }
+
+            if (this.state.selected.length > 1) {
+                this.setState({isCompareButtonDisabled: false});
+            } else {
+                this.setState({isCompareButtonDisabled: true});
+            }
+        } else {
             console.log('Reached maximum number of Pokemons!');
-        } else if (this.state.selected.includes(event.target.value)) {
-            console.log('Remove ' + event.target.value + ' from selected Pokémon.');
-
-            console.log(this.state.selected.indexOf(event.target.value));
-
-            const copyArr = this.state.selected.slice();
-            const copyArr1 = this.state.pokemonData.slice();
-
-            copyArr.splice(this.state.selected.indexOf(event.target.value), 1);
-            copyArr1.splice(this.state.selected.indexOf(event.target.value), 1);
-
-            this.setState({selected: copyArr});
-            this.setState({pokemonData: copyArr1});
-        } else {
-            this.setState({openSnackbar: true});
-            this.setState({message: (event.target.value + ' was added.')});
-            this.setState({selected: [...this.state.selected, event.target.value]});
-            const response = await axios.get('/api/pokemon/specific/' + event.target.value);
-            this.setState({pokemonData: [...this.state.pokemonData, response.data[0]]});
         }
+
+        
+    }
+
+    public openModal = () => {
+        this.setState({openModal: true})
+    }
+
+    public handleModal = (open: boolean) => {
+        this.setState({openModal: open});
     }
 
     public render() {
@@ -114,6 +128,14 @@ class PokemonList extends React.Component<{getPokemon(input: any): any;}, IPokem
             <Grid container={true} className="PokemonList" spacing={16}>
                 <Grid item={true} md={4}>
                     <FilterBar submitFilter={this.handleFiltering}/>
+                </Grid>
+                <Grid item={true} md={2}>
+                    <Button variant="contained" color="secondary" disabled={this.state.isCompareButtonDisabled} onClick={this.openModal}>Compare</Button>
+                </Grid>
+
+                <ComparePage open={this.state.openModal} onClick={this.handleModal} pokemon={this.state.pokemonData} clearPokemonData={this.clearPokemonData}/>
+
+                <Grid item={true} md={10}>
                     <List>
                         {this.state.list.map((pokemon, i) => {
                             return (
@@ -133,9 +155,9 @@ class PokemonList extends React.Component<{getPokemon(input: any): any;}, IPokem
                     </List>
                 </Grid>
                 
-                <Grid item={true} md={8}>
+                {/* <Grid item={true} md={8}>
                     <ComparePage pokemon={this.state.pokemonData} clearPokemonData={this.clearPokemonData}/>
-                </Grid>
+                </Grid> */}
 
                 <Snackbar
                     anchorOrigin={{
@@ -145,9 +167,7 @@ class PokemonList extends React.Component<{getPokemon(input: any): any;}, IPokem
                     open={this.state.openSnackbar}
                     autoHideDuration={6000}
                     onClose={this.handleClose}
-                    ContentProps={{
-                        'aria-describedby': 'message-id',
-                    }}
+                    ContentProps={{'aria-describedby': 'message-id'}}
                     message={<span id="message-id">{this.state.message}</span>}
                     action={[
                         <Button key="undo" color="secondary" size="small" onClick={this.handleClose}>

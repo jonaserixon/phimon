@@ -8,7 +8,7 @@ class Header extends React.Component {
             <div className="Header">
                 <h1>PhiMon - The Ultimate Pokemon Resource</h1>
                 <Link to='/'>PhiMon</Link>
-                <Link to='/list'>Pokémon Database</Link>
+                <Link to='/database'>Pokémon Database</Link>
                 <SearchBar />
             </div>
         );

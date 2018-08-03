@@ -1,12 +1,10 @@
 import * as React from 'react';
-import '../style.css';
-import Header from '../components/Header';
 
 class App extends React.Component {
     public render() {
         return (
             <div className="App">
-                <Header />
+                <p>Welcome, please use the database in order to find information of Pokémon and compare their stats with each other!</p>
             </div>
         );
     }

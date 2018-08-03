@@ -1,10 +1,6 @@
 import * as React from 'react';
-import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
-
 
 export const FilterOptions = (props: any) => {
     return (
@@ -41,7 +37,6 @@ export const FilterOptions = (props: any) => {
 
 export const SortOptions = (props: any) => {
     return (
-
         <InputLabel>
         Sort
             <Select
@@ -61,5 +56,3 @@ export const SortOptions = (props: any) => {
         </InputLabel>
     )
 }
-
-

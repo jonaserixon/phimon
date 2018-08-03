@@ -1,20 +1,24 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Router, Route } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import App from './containers/App';
+import App from './components/App';
 import Pokemon from './components/Pokemon';
 import PokemonList from './components/PokemonList';
 import store from './redux/store/store';
 import history from './utils/history';
+import Header from './components/Header';
 
 ReactDOM.render(
     <Provider store={store}>
         <Router history={history}>
             <div>
-                <Route path='/' component={App} />
-                <Route path='/pokemon/:id' component={Pokemon} />
-                <Route path='/list' component={PokemonList} />
+            <Header />
+                <Switch>
+                    <Route path='/pokemon/:id' component={Pokemon} />
+                    <Route path='/database' component={PokemonList} />
+                    <Route path='/' component={App} />
+                </Switch>
             </div>
         </Router>
     </Provider>

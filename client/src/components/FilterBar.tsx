@@ -13,7 +13,7 @@ interface IFilterBarState {
     sortType: string
 }
 
-class SearchBar extends React.Component<IFilterBarProps, IFilterBarState> {
+class FilterBar extends React.Component<IFilterBarProps, IFilterBarState> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -57,4 +57,4 @@ class SearchBar extends React.Component<IFilterBarProps, IFilterBarState> {
     }
 }
 
-export default SearchBar;
+export default FilterBar;
