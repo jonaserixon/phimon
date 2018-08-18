@@ -85,7 +85,7 @@ class PokemonList extends React.Component<{getPokemon(input: any): any;}, IPokem
                 newChecked.splice(currentIndex, 1);
             }
             this.setState({checked: newChecked});
-            
+
             if (this.state.selected.includes(event.target.value)) {
                 const newSelected = this.state.selected.slice();
                 const newPokemonData = this.state.pokemonData.slice();
@@ -111,8 +111,6 @@ class PokemonList extends React.Component<{getPokemon(input: any): any;}, IPokem
         } else {
             console.log('Reached maximum number of Pokemons!');
         }
-
-        
     }
 
     public openModal = () => {
@@ -155,10 +153,6 @@ class PokemonList extends React.Component<{getPokemon(input: any): any;}, IPokem
                     </List>
                 </Grid>
                 
-                {/* <Grid item={true} md={8}>
-                    <ComparePage pokemon={this.state.pokemonData} clearPokemonData={this.clearPokemonData}/>
-                </Grid> */}
-
                 <Snackbar
                     anchorOrigin={{
                         horizontal: 'right',

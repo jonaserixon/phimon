@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 
 interface IFilterBarProps {
-    submitFilter(input: string): void;
+    submitFilter(input: any): any;
 }
 
 interface IFilterBarState {
